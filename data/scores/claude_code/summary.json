@@ -1,0 +1,46 @@
+{
+  "platform": "claude_code",
+  "total_queries": 119,
+  "scores": {
+    "relevance_precision": 54.3,
+    "effective_coverage": 41.1,
+    "information_utility": 42.7,
+    "overall": 46.0,
+    "task_completion_rate": 86.5,
+    "mean_qualified_results": 7.1
+  },
+  "by_category": {
+    "recruiting": {
+      "relevance_precision": 59.0,
+      "effective_coverage": 46.7,
+      "information_utility": 45.8,
+      "task_completion_rate": 90.0,
+      "mean_qualified_results": 7.0,
+      "num_queries": 30.0
+    },
+    "b2b": {
+      "relevance_precision": 43.0,
+      "effective_coverage": 42.3,
+      "information_utility": 43.6,
+      "task_completion_rate": 75.0,
+      "mean_qualified_results": 6.3,
+      "num_queries": 32.0
+    },
+    "deterministic": {
+      "relevance_precision": 69.6,
+      "effective_coverage": 62.9,
+      "information_utility": 38.5,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 9.4,
+      "num_queries": 28.0
+    },
+    "influencer": {
+      "relevance_precision": 46.9,
+      "effective_coverage": 39.3,
+      "information_utility": 43.4,
+      "task_completion_rate": 82.8,
+      "mean_qualified_results": 5.9,
+      "num_queries": 29.0
+    }
+  }
+}

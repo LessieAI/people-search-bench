@@ -1,0 +1,37 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+*.log
+.DS_Store
+.ruff_cache/
+.mypy_cache/
+uv.lock
+
+# Promotional materials (internal only)
+promo/
+
+# Internal evaluation scripts
+scripts/
+
+# Internal docs (Chinese)
+docs/BENCHMARK_METHODOLOGY_zh.md
+docs/EXPERIMENT_REPORT_zh.md
+
+# =============================================================
+# Raw data — contains personal information, excluded from git
+# Kept locally for internal team access via zip sharing
+# =============================================================
+
+# Raw search results per platform (CSVs with personal data)
+data/raw_results/
+
+# Per-person evaluation details (scoring breakdowns)
+data/evaluation_details/
+*.zip

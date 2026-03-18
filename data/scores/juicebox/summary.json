@@ -1,0 +1,46 @@
+{
+  "platform": "juicebox",
+  "total_queries": 119,
+  "scores": {
+    "relevance_precision": 44.7,
+    "effective_coverage": 41.8,
+    "information_utility": 50.9,
+    "overall": 45.8,
+    "task_completion_rate": 84.0,
+    "mean_qualified_results": 7.5
+  },
+  "by_category": {
+    "recruiting": {
+      "relevance_precision": 66.1,
+      "effective_coverage": 75.3,
+      "information_utility": 55.8,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 11.3,
+      "num_queries": 30.0
+    },
+    "b2b": {
+      "relevance_precision": 46.1,
+      "effective_coverage": 52.7,
+      "information_utility": 55.4,
+      "task_completion_rate": 84.4,
+      "mean_qualified_results": 7.9,
+      "num_queries": 32.0
+    },
+    "deterministic": {
+      "relevance_precision": 39.0,
+      "effective_coverage": 46.9,
+      "information_utility": 46.8,
+      "task_completion_rate": 71.4,
+      "mean_qualified_results": 7.0,
+      "num_queries": 28.0
+    },
+    "influencer": {
+      "relevance_precision": 26.6,
+      "effective_coverage": 22.8,
+      "information_utility": 44.0,
+      "task_completion_rate": 79.3,
+      "mean_qualified_results": 3.4,
+      "num_queries": 29.0
+    }
+  }
+}

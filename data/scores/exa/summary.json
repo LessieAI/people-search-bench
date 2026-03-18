@@ -1,0 +1,46 @@
+{
+  "platform": "exa",
+  "total_queries": 119,
+  "scores": {
+    "relevance_precision": 53.8,
+    "effective_coverage": 58.1,
+    "information_utility": 53.1,
+    "overall": 55.0,
+    "task_completion_rate": 96.6,
+    "mean_qualified_results": 9.0
+  },
+  "by_category": {
+    "recruiting": {
+      "relevance_precision": 66.2,
+      "effective_coverage": 73.8,
+      "information_utility": 54.0,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 11.1,
+      "num_queries": 30.0
+    },
+    "b2b": {
+      "relevance_precision": 50.0,
+      "effective_coverage": 58.5,
+      "information_utility": 57.0,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 8.8,
+      "num_queries": 32.0
+    },
+    "deterministic": {
+      "relevance_precision": 61.6,
+      "effective_coverage": 69.0,
+      "information_utility": 52.9,
+      "task_completion_rate": 96.4,
+      "mean_qualified_results": 10.4,
+      "num_queries": 28.0
+    },
+    "influencer": {
+      "relevance_precision": 37.4,
+      "effective_coverage": 39.3,
+      "information_utility": 48.0,
+      "task_completion_rate": 89.7,
+      "mean_qualified_results": 5.9,
+      "num_queries": 29.0
+    }
+  }
+}

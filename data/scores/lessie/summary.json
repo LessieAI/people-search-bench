@@ -1,0 +1,46 @@
+{
+  "platform": "lessie",
+  "total_queries": 119,
+  "scores": {
+    "relevance_precision": 70.2,
+    "effective_coverage": 69.1,
+    "information_utility": 56.4,
+    "overall": 65.2,
+    "task_completion_rate": 100.0,
+    "mean_qualified_results": 10.4
+  },
+  "by_category": {
+    "recruiting": {
+      "relevance_precision": 74.8,
+      "effective_coverage": 75.6,
+      "information_utility": 54.3,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 11.3,
+      "num_queries": 30.0
+    },
+    "b2b": {
+      "relevance_precision": 62.8,
+      "effective_coverage": 63.5,
+      "information_utility": 55.5,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 9.5,
+      "num_queries": 32.0
+    },
+    "deterministic": {
+      "relevance_precision": 79.0,
+      "effective_coverage": 75.2,
+      "information_utility": 57.1,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 11.3,
+      "num_queries": 28.0
+    },
+    "influencer": {
+      "relevance_precision": 65.2,
+      "effective_coverage": 62.8,
+      "information_utility": 58.9,
+      "task_completion_rate": 100.0,
+      "mean_qualified_results": 9.4,
+      "num_queries": 29.0
+    }
+  }
+}

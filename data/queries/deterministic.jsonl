@@ -1,0 +1,28 @@
+{"query_id": "det_0001", "prompt": "Generate a report on the most actively publishing reinforcement learning researchers in the past 2 years, including their affiliation, h-index trend, and recent conference appearances.", "category": "deterministic", "source_id": "abs_0001"}
+{"query_id": "det_0002", "prompt": "Who are the rising stars in the large language model safety and alignment field? I want people who started publishing after 2021 and already have 3+ first-author papers at top venues.", "category": "deterministic", "source_id": "abs_0002"}
+{"query_id": "det_0003", "prompt": "Find engineers who recently mass-departed from Google DeepMind in the last 6 months and identify where they went. Show me the talent flow pattern.", "category": "deterministic", "source_id": "abs_0003"}
+{"query_id": "det_0004", "prompt": "I want to understand the AI robotics talent landscape in the Bay Area. Who are the key people, which labs are they at, and who has been moving between companies recently?", "category": "deterministic", "source_id": "abs_0004"}
+{"query_id": "det_0005", "prompt": "Map the key people behind the top AI agent startups funded in 2025. For each company give me the founding team, their backgrounds, and any shared alumni networks.", "category": "deterministic", "source_id": "abs_0007"}
+{"query_id": "det_0006", "prompt": "Which biotech scientists have recently transitioned from academia to industry in the gene therapy space? Show me people who left university positions in the last 12 months.", "category": "deterministic", "source_id": "abs_0008"}
+{"query_id": "det_0007", "prompt": "Find investors or VCs who were previously technical founders themselves, now focus on AI infrastructure deals, and have made at least 5 investments in the last 2 years.", "category": "deterministic", "source_id": "abs_0009"}
+{"query_id": "det_0008", "prompt": "I'm researching the quantum computing talent pool. Give me an overview of who the top researchers are worldwide, their institutional affiliations, and which ones have industry advisory roles.", "category": "deterministic", "source_id": "abs_0010"}
+{"query_id": "det_0009", "prompt": "Find independent consultants or fractional CTOs who have deep Kubernetes and cloud-native expertise, are active on Twitter or LinkedIn, and appear to be available for new engagements.", "category": "deterministic", "source_id": "abs_0011"}
+{"query_id": "det_0010", "prompt": "Find people who have both a strong academic publication record in NLP and also hold senior engineering positions at tech companies. I want the rare academics-turned-practitioners.", "category": "deterministic", "source_id": "abs_0014"}
+{"query_id": "det_0011", "prompt": "Give me a talent density analysis for the autonomous driving sector in China — which cities have the highest concentration of senior engineers, and which companies are they clustered at?", "category": "deterministic", "source_id": "abs_0015"}
+{"query_id": "det_0012", "prompt": "Find all current executives at OpenAI", "category": "deterministic", "source_id": "det_0001"}
+{"query_id": "det_0013", "prompt": "Who are the board members of Apple Inc.?", "category": "deterministic", "source_id": "det_0002"}
+{"query_id": "det_0014", "prompt": "Find all employees currently working at Manus AI", "category": "deterministic", "source_id": "det_0003"}
+{"query_id": "det_0015", "prompt": "List all research scientists at OpenAI", "category": "deterministic", "source_id": "det_0004"}
+{"query_id": "det_0016", "prompt": "Who founded Midjourney?", "category": "deterministic", "source_id": "det_0006"}
+{"query_id": "det_0017", "prompt": "Who is the current Head of Product at Google?", "category": "deterministic", "source_id": "det_0007"}
+{"query_id": "det_0018", "prompt": "Who is the CTO of Stripe?", "category": "deterministic", "source_id": "det_0008"}
+{"query_id": "det_0019", "prompt": "Find employees at Mistral AI", "category": "deterministic", "source_id": "det_0009"}
+{"query_id": "det_0020", "prompt": "Who were all the CTOs of Apple throughout history?", "category": "deterministic", "source_id": "det_0010"}
+{"query_id": "det_0021", "prompt": "Find all current executives at OpenAI", "category": "deterministic", "source_id": "deterministic_0000"}
+{"query_id": "det_0022", "prompt": "Find executives at Anthropic", "category": "deterministic", "source_id": "deterministic_0002"}
+{"query_id": "det_0023", "prompt": "Find all employees currently working at Manus AI", "category": "deterministic", "source_id": "deterministic_0006"}
+{"query_id": "det_0024", "prompt": "Find all founding team members of Anthropic?", "category": "deterministic", "source_id": "deterministic_0010"}
+{"query_id": "det_0025", "prompt": "Find all product leads at Google", "category": "deterministic", "source_id": "deterministic_0020"}
+{"query_id": "det_0026", "prompt": "Find all researchers at Anthropic", "category": "deterministic", "source_id": "deterministic_0025"}
+{"query_id": "det_0027", "prompt": "Find employees at Mistral AI", "category": "deterministic", "source_id": "deterministic_0031"}
+{"query_id": "det_0028", "prompt": "Find employees at Together AI", "category": "deterministic", "source_id": "deterministic_0040"}
