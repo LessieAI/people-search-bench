@@ -1,9 +1,3 @@
-# People Search Bench
-
-<p align="center">
-  <img src="assets/people_search_bench.jpg" alt="People Search Bench" width="800"/>
-</p>
-
 <h1 align="center">People Search Bench</h1>
 
 <p align="center">
