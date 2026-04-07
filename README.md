@@ -1,7 +1,5 @@
-<h1 align="center">People Search Bench</h1>
-
 <p align="center">
-  An open benchmark for evaluating AI-powered people search agents
+  <img src="assets/banner.svg" alt="People Search Bench" width="900"/>
 </p>
 
 <p align="center">
@@ -16,16 +14,12 @@
   <a href="#data--reproducibility">Reproducibility</a>
 </p>
 
----
-
-People Search Bench evaluates how well AI platforms can find real people matching natural language queries. It scores platforms across three dimensions — **Relevance Precision**, **Effective Coverage**, and **Information Utility** — using Criteria-Grounded Verification with web-based fact-checking. See our [paper](https://arxiv.org/abs/2603.27476) for full details.
+No existing benchmark measures how well AI can find real people from natural language queries. We built one: 119 queries, 4 scenarios, 3 scoring dimensions, all graded against web evidence — not LLM opinion. [Paper](https://arxiv.org/abs/2603.27476).
 
 ## Leaderboard
 
-119 queries across 4 categories. All scores on a 0–100 scale.
-
 <p align="center">
-  <img src="assets/radar-chart.png" alt="Radar chart comparing platform scores" width="800"/>
+  <img src="assets/performance-by-scenario.png" alt="Performance by scenario" width="800"/>
 </p>
 
 | Platform | Relevance Precision | Effective Coverage | Information Utility | Overall |
@@ -35,39 +29,24 @@ People Search Bench evaluates how well AI platforms can find real people matchin
 | Claude Code | 54.3 | 41.1 | 42.7 | 46.0 |
 | Juicebox (PeopleGPT) | 44.7 | 41.8 | 50.9 | 45.8 |
 
-**Platform notes:**
-- **Juicebox** is a specialized recruiting platform (800M+ profiles). It ranks #2 in Recruiting with the highest Coverage (75.3) and Utility (55.8) in that category. Lower scores on Expert and KOL queries reflect its recruiting-focused design.
-- **Claude Code** is a general-purpose AI agent, not a specialized people search tool. It achieves reasonable Relevance Precision but lower Coverage — it finds fewer people per query.
-- Relevance Precision uses **padded nDCG@10**: the ideal DCG always assumes 10 perfectly relevant results, so platforms returning fewer results are penalized.
-
 <details>
 <summary><b>How scores are computed</b></summary>
 
-Each dimension produces a 0–100 score using the [Criteria-Grounded Verification](#methodology) pipeline:
+We extract checkable criteria from each query, verify each returned person against those criteria via web search (Tavily API), and produce a relevance grade (0–1) per person.
 
-- **Relevance Precision (padded nDCG@10)**: The LLM extracts checkable criteria from each query. Each returned person is verified against these criteria via web search, producing a relevance grade (0.0–1.0). The ideal DCG always assumes 10 perfectly relevant results are achievable, so a platform returning only 3 perfect results scores lower than one returning 10.
+- **Relevance Precision** — padded nDCG@10. The ideal DCG assumes 10 perfect results exist, so returning 3 perfect results out of 3 still scores below a platform that returns 10.
+- **Effective Coverage** — `TCR × mean(min(qualified / K, 1.0)) × 100`. Qualified = relevance grade >= 0.5.
+- **Information Utility** — average of profile completeness, query-specific evidence, and actionability.
+- **Overall** — equal-weight mean of the three.
 
-- **Effective Coverage**: Counts qualified results (relevance_grade >= 0.5) per query, combined with task completion rate. Formula: `TCR × mean(min(qualified_count / K, 1.0)) × 100`.
-
-- **Information Utility**: Three equally weighted sub-scores: (1) **Profile Completeness** — richness of person data; (2) **Query-Specific Evidence** — per-criterion verification and source links; (3) **Actionability** — can the user take next steps from this data alone. Formula: `(completeness + evidence + actionability) / 3`.
-
-- **Overall**: Equal-weight average of all three dimensions (Dawes, 1979).
+**Platform notes:** Juicebox leads Coverage (75.3) and Utility (55.8) in Recruiting — its 800M-profile database pays off in that vertical, less so outside it. Claude Code gets decent Relevance but returns fewer results, dragging Coverage down. Relevance Precision uses padded nDCG@10: the ideal DCG always assumes 10 perfect results, so platforms returning fewer results are penalized.
 
 </details>
 
 <details>
-<summary><b>Results by scenario</b></summary>
+<summary><b>Per-dimension breakdown by scenario</b></summary>
 
-#### Overall by Scenario
-
-| Scenario | Queries | Lessie | Exa | Juicebox | Claude Code |
-|----------|:-------:|:------:|:---:|:--------:|:-----------:|
-| Recruiting | 30 | 68.2 | 64.7 | 65.7 | 50.5 |
-| B2B Prospecting | 32 | 60.6 | 55.2 | 51.4 | 43.0 |
-| Expert / Deterministic | 28 | 70.4 | 61.2 | 44.2 | 57.0 |
-| Influencer / KOL | 29 | 62.3 | 41.6 | 31.1 | 43.2 |
-
-#### Relevance Precision (padded nDCG@10)
+#### Relevance Precision
 
 | Scenario | Lessie | Exa | Juicebox | Claude Code |
 |----------|:------:|:---:|:--------:|:-----------:|
@@ -98,66 +77,53 @@ Each dimension produces a 0–100 score using the [Criteria-Grounded Verificatio
 
 ## Methodology
 
-Every score is backed by **verifiable web evidence**, not subjective LLM judgments.
-
 ```
-Query ──→ Extract Criteria ──→ Verify via Web ──→ Grade ──→ Aggregate
-         (N checkable items)    (Tavily API)      (0/0.5/1)   (nDCG + Coverage + Utility)
+Query → Extract checkable criteria → Verify each person via web search → Grade → Aggregate
 ```
 
-**Example:**
-> **Query:** "Find senior ML engineers at Google in Bay Area"
-> **Criteria:** (1) Senior ML Engineer (2) At Google (3) Bay Area
-> **Jane Doe:** (1) pass (2) pass (3) fail → **relevance_grade = 2/3 = 0.67**
+Each query is decomposed into concrete criteria. Each returned person is checked against those criteria using live web search — not the LLM's parametric memory. A person matching 2 of 3 criteria scores 0.67.
 
-### Scoring
+| Metric | How |
+|:-------|:----|
+| **Relevance Precision** | Padded nDCG@10 over per-person relevance grades |
+| **Effective Coverage** | Task completion rate × qualified yield per query (capped at K=10) |
+| **Information Utility** | Mean of completeness, evidence quality, and actionability |
+| **Overall** | Equal-weight average |
 
-| Metric | Formula | Description |
-|:-------|:--------|:------------|
-| **Relevance Precision** | `padded nDCG@10` | Quality and ranking. Ideal DCG assumes 10 perfect results — returning fewer results scores lower. |
-| **Effective Coverage** | `TCR × mean(min(qualified / K, 1.0)) × 100` | Qualified results (grade >= 0.5) combined with task completion rate |
-| **Information Utility** | `(completeness + evidence + actionability) / 3` | Profile richness + match explanations + immediate actionability |
-| **Overall** | `avg(Relevance, Coverage, Utility)` | Equal-weight average of all three dimensions |
+**Why not LLM-as-Judge?** LLM-as-Judge scores are subjective, prompt-sensitive, and biased toward style over substance. We decompose into binary factual checks verified against live web sources — trading speed for reproducibility.
 
-### Why not LLM-as-Judge?
+### Query Design
 
-| Issue | Traditional LLM-as-Judge | Our Approach |
-|:------|:-------------------------|:-------------|
-| **Subjectivity** | Vague quality scores | Binary factual checks |
-| **Evidence** | Stale parametric knowledge | Live web verification |
-| **Reproducibility** | Prompt-sensitive | Explicit, fixed criteria |
-| **Bias** | Style/length bias | Verifiable facts only |
+119 queries across 4 categories, in English, Portuguese, Spanish, and Dutch:
 
-### Query Categories
+| Category | n | What it tests |
+|----------|:-:|---------------|
+| **Recruiting** | 30 | Skills + experience + location matching |
+| **B2B Prospecting** | 32 | Finding decision-makers at target companies |
+| **Expert / Deterministic** | 28 | Queries with verifiable correct answers |
+| **Influencer / KOL** | 29 | Cross-platform creator discovery |
 
-| Category | Queries | Description | Example |
-|----------|:-------:|-------------|---------|
-| **Recruiting** | 30 | Candidates with specific skills, experience, location | "Find backend developers in London with microservices experience" |
-| **B2B Prospecting** | 32 | Decision-makers at target companies | "Find corporate innovation leaders in Europe at large enterprises" |
-| **Expert / Deterministic** | 28 | Queries with verifiable answers or specific domain experts | "Find all co-founders of Together AI" |
-| **Influencer / KOL** | 29 | Content creators and opinion leaders | "Find AI KOLs with 10K+ followers on Twitter" |
+All queries available in [`data/queries/`](data/queries/).
 
-The benchmark includes queries in English, Portuguese, Spanish, and Dutch. The full query set is in [`data/queries/`](data/queries/).
+### Platforms
 
-### Platforms Evaluated
-
-| Platform | Type | Data Sources |
-|----------|------|-------------|
-| [Lessie](https://lessie.ai) | AI Agent | Multi-source (web, social, professional, academic) |
+| Platform | Type | What it searches |
+|----------|------|-----------------|
+| [Lessie](https://lessie.ai) | AI Agent | Web, social, professional, academic |
 | [Exa](https://exa.ai) | Search API | Structured entity database |
-| [Juicebox (PeopleGPT)](https://juicebox.ai) | AI Recruiting | 800M+ profiles, 60+ sources |
+| [Juicebox](https://juicebox.ai) | AI Recruiting | 800M+ professional profiles |
 | [Claude Code](https://claude.ai) | General AI Agent | Web search |
 
 ## Case Studies
 
-Supplementary examples evaluated independently from the 119-query benchmark dataset, included to illustrate qualitative differences across challenging, cross-domain queries.
+Eight queries evaluated outside the main benchmark to stress-test cross-domain edge cases.
 
 <details>
-<summary><b>Case 1: Rising Stars in LLM Safety & Alignment</b> — Academic + Publication Cross-Reference</summary>
+<summary><b>Case 1: Rising Stars in LLM Safety & Alignment</b></summary>
 
-**Query**: *"Who are the rising stars in the large language model safety and alignment field? I want people who started publishing after 2021 and already have 3+ first-author papers at top venues."*
+*"Who are the rising stars in the large language model safety and alignment field? I want people who started publishing after 2021 and already have 3+ first-author papers at top venues."*
 
-Requires cross-referencing publication databases with career profiles.
+Cross-references publication databases with career profiles.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -169,11 +135,11 @@ Requires cross-referencing publication databases with career profiles.
 </details>
 
 <details>
-<summary><b>Case 2: Brazilian Beauty Micro-Influencers on Instagram</b> — 5-Constraint Social Search</summary>
+<summary><b>Case 2: Brazilian Beauty Micro-Influencers on Instagram</b></summary>
 
-**Query**: *"Brazilian beauty niche influencers who talk about hair, hair loss, etc... with between 5k to 30k followers on Instagram, and who have a highly engaged audience"*
+*"Brazilian beauty niche influencers who talk about hair, hair loss, etc... with between 5k to 30k followers on Instagram, and who have a highly engaged audience"*
 
-5 simultaneous constraints: geography + platform + niche + follower range + engagement quality.
+Five constraints at once: geography, platform, niche, follower range, engagement.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -185,11 +151,11 @@ Requires cross-referencing publication databases with career profiles.
 </details>
 
 <details>
-<summary><b>Case 3: Tsinghua Grads in Bay Area AI</b> — Education + Geography + Industry</summary>
+<summary><b>Case 3: Tsinghua Grads in Bay Area AI</b></summary>
 
-**Query**: *"Find me top AI developers in Bay Area, and graduated from Tsinghua University after 2010"*
+*"Find me top AI developers in Bay Area, and graduated from Tsinghua University after 2010"*
 
-4 constraints: geography + profession + education + temporal.
+Tests alumni network data access across geography, profession, education, and time.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -201,11 +167,11 @@ Requires cross-referencing publication databases with career profiles.
 </details>
 
 <details>
-<summary><b>Case 4: AI Agent Startup Founders (2025 Funded)</b> — Funding Data + Founder Profiles</summary>
+<summary><b>Case 4: AI Agent Startup Founders (2025 Funded)</b></summary>
 
-**Query**: *"Map the key people behind the top AI agent startups funded in 2025. For each company give me the founding team, their backgrounds, and any shared alumni networks."*
+*"Map the key people behind the top AI agent startups funded in 2025. For each company give me the founding team, their backgrounds, and any shared alumni networks."*
 
-Requires synthesis of venture funding data + company databases + founder profiles.
+Requires fusing venture funding data, company databases, and founder profiles.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -217,11 +183,11 @@ Requires synthesis of venture funding data + company databases + founder profile
 </details>
 
 <details>
-<summary><b>Case 5: Agricultural Scientists in Africa</b> — Non-LinkedIn Domain</summary>
+<summary><b>Case 5: Agricultural Scientists in Africa</b></summary>
 
-**Query**: *"Find agricultural scientists in Africa working on food security, crop science, or sustainable farming"*
+*"Find agricultural scientists in Africa working on food security, crop science, or sustainable farming"*
 
-Tests coverage where most professionals are indexed in institutional databases, not LinkedIn.
+Most of these people live in institutional databases, not LinkedIn.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -233,11 +199,11 @@ Tests coverage where most professionals are indexed in institutional databases, 
 </details>
 
 <details>
-<summary><b>Case 6: NLP Academics Turned Industry Practitioners</b> — Cross-Profile Identity</summary>
+<summary><b>Case 6: NLP Academics Turned Industry Practitioners</b></summary>
 
-**Query**: *"Find people who have both a strong academic publication record in NLP and also hold senior engineering positions at tech companies."*
+*"Find people who have both a strong academic publication record in NLP and also hold senior engineering positions at tech companies."*
 
-Requires matching two distinct professional identities.
+Two professional identities that rarely coexist in one data source.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -249,11 +215,11 @@ Requires matching two distinct professional identities.
 </details>
 
 <details>
-<summary><b>Case 7: Google DeepMind Talent Flow</b> — Temporal Career Intelligence</summary>
+<summary><b>Case 7: Google DeepMind Talent Flow</b></summary>
 
-**Query**: *"Find engineers who recently mass-departed from Google DeepMind in the last 6 months and identify where they went."*
+*"Find engineers who recently mass-departed from Google DeepMind in the last 6 months and identify where they went."*
 
-Tests temporal career change detection.
+Temporal career tracking — who left, when, where they landed.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -265,11 +231,11 @@ Tests temporal career change detection.
 </details>
 
 <details>
-<summary><b>Case 8: UK Film Prop Companies Needing CNC Services</b> — Niche B2B Prospecting</summary>
+<summary><b>Case 8: UK Film Prop Companies Needing CNC Services</b></summary>
 
-**Query**: *"Find me UK film prop or event prop companies who would require an outsourced CNC service"*
+*"Find me UK film prop or event prop companies who would require an outsourced CNC service"*
 
-Hyper-specific niche B2B query with an inferred need.
+Niche B2B with an inferred need — the query never says "CNC" is a service these companies buy, the platform has to figure that out.
 
 | Platform | Relevance | Coverage | Utility | Qualified |
 |----------|:---------:|:--------:|:-------:|:---------:|
@@ -282,18 +248,13 @@ Hyper-specific niche B2B query with an inferred need.
 
 ## Data & Reproducibility
 
-**What's in this repository:**
-- Benchmark queries (`data/queries/`) — all search prompts used in the evaluation
-- Evaluation methodology — scoring formulas, criteria extraction, and aggregation logic
-- Aggregated platform scores — verifiable against the methodology
+This repo contains the query set ([`data/queries/`](data/queries/)), evaluation methodology, and aggregated scores. Raw per-person results are excluded for privacy.
 
-**What's NOT in this repository:**
-Raw search results and per-person evaluations are excluded for privacy and compliance reasons.
+The pipeline: run queries → collect results as CSV → extract criteria per query → verify each person via web search → grade → aggregate into nDCG, Coverage, and Utility scores. Same pipeline, same LLM, applied identically to every platform.
 
-**How the benchmark works:**
-1. Run each query on each platform, collect returned people into CSV files.
-2. Run the Criteria-Grounded Verification pipeline — extract criteria, verify via web search, compute relevance grades.
-3. Aggregate per-person grades into platform-level scores using nDCG@K, Effective Coverage, and Information Utility.
+## Disclosure
+
+This benchmark is maintained by [LessieAI](https://lessie.ai), which is also one of the evaluated platforms. Everything is open-source. Scoring relies on external web verification, not our own models. We apply the same pipeline identically to all platforms. [Submit your results](docs/submission_guide.md) if you want to be included.
 
 ## Citation
 
@@ -308,18 +269,6 @@ Raw search results and per-person evaluations are excluded for privacy and compl
 }
 ```
 
-## Disclosure
-
-This benchmark was designed and maintained by [LessieAI](https://lessie.ai), which is also one of the evaluated platforms. To mitigate potential bias:
-
-- All evaluation code and query definitions are open-source and auditable.
-- Scoring uses external web verification (Tavily API), not LLM parametric knowledge.
-- The same pipeline and LLM model are applied identically to all platforms.
-- Results are published alongside the methodology for independent verification.
-
-We welcome third-party reproductions and encourage other platforms to [submit their results](docs/submission_guide.md) for evaluation.
-
 ## Acknowledgments
 
-- Evaluation methodology grounded in [MT-Bench](https://arxiv.org/abs/2306.05685) (Zheng et al., 2023), nDCG (Jarvelin & Kekalainen, 2002), and MCDA (Dawes, 1979)
-- Web verification powered by [Tavily](https://tavily.com) -- LLM evaluation via [OpenRouter](https://openrouter.ai)
+Methodology builds on [MT-Bench](https://arxiv.org/abs/2306.05685) (Zheng et al., 2023), nDCG (Jarvelin & Kekalainen, 2002), and MCDA (Dawes, 1979). Web verification via [Tavily](https://tavily.com), LLM evaluation via [OpenRouter](https://openrouter.ai).

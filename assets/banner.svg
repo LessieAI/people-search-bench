@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f8f9ff"/>
+      <stop offset="100%" stop-color="#eef0ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4e60ff"/>
+      <stop offset="100%" stop-color="#7b8aff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="180" rx="16" fill="url(#bg)"/>
+
+  <!-- Decorative grid dots -->
+  <g opacity="0.06">
+    <circle cx="1000" cy="30" r="2" fill="#4e60ff"/>
+    <circle cx="1030" cy="30" r="2" fill="#4e60ff"/>
+    <circle cx="1060" cy="30" r="2" fill="#4e60ff"/>
+    <circle cx="1090" cy="30" r="2" fill="#4e60ff"/>
+    <circle cx="1120" cy="30" r="2" fill="#4e60ff"/>
+    <circle cx="1000" cy="50" r="2" fill="#4e60ff"/>
+    <circle cx="1030" cy="50" r="2" fill="#4e60ff"/>
+    <circle cx="1060" cy="50" r="2" fill="#4e60ff"/>
+    <circle cx="1090" cy="50" r="2" fill="#4e60ff"/>
+    <circle cx="1120" cy="50" r="2" fill="#4e60ff"/>
+    <circle cx="1000" cy="70" r="2" fill="#4e60ff"/>
+    <circle cx="1030" cy="70" r="2" fill="#4e60ff"/>
+    <circle cx="1060" cy="70" r="2" fill="#4e60ff"/>
+    <circle cx="1090" cy="70" r="2" fill="#4e60ff"/>
+    <circle cx="1120" cy="70" r="2" fill="#4e60ff"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="80" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="48" font-weight="700" fill="#19191a">
+    People Search Bench
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="120" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#19191a" opacity="0.55">
+    An open benchmark for evaluating AI-powered people search agents
+  </text>
+
+  <!-- Accent line -->
+  <rect x="570" y="138" width="60" height="3" rx="1.5" fill="url(#accent)"/>
+</svg>
