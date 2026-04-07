@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <a href="https://arxiv.org/abs/2603.27476"><img src="https://img.shields.io/badge/arXiv-2603.27476-b31b1b" alt="arXiv"></a>
   <a href="#leaderboard"><img src="https://img.shields.io/badge/119%20Queries-4%20Categories-blue" alt="119 Queries"></a>
   <a href="#methodology"><img src="https://img.shields.io/badge/Methodology-Criteria--Grounded%20Verification-green" alt="Methodology"></a>
   <a href="#contribute"><img src="https://img.shields.io/badge/Contributions-Welcome-orange" alt="Contributions"></a>
@@ -411,17 +412,6 @@ The evaluation pipeline code and query definitions are open-source. The raw pers
 
 ---
 
-## Technical Report
-
-<!-- 
-To add the technical report when ready:
-1. Upload to arXiv (https://arxiv.org) and get the paper ID (e.g., 2406.12345)
-2. Uncomment the line below and replace with your arXiv URL:
--->
-<!-- > 📄 **[People Search Bench: A Benchmark for Evaluating AI-Powered People Search Agents](https://arxiv.org/abs/XXXX.XXXXX)** — Full technical report with extended methodology, statistical analysis, and ablation studies. -->
-
----
-
 ## Citation
 
 ```bibtex
@@ -429,7 +419,9 @@ To add the technical report when ready:
   title={People Search Bench: A Benchmark for Evaluating AI-Powered People Search Agents},
   author={LessieAI},
   year={2026},
-  url={https://github.com/LessieAI/people-search-bench}
+  eprint={2603.27476},
+  archivePrefix={arXiv},
+  url={https://arxiv.org/abs/2603.27476}
 }
 ```
 
