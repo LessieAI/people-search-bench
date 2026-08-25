@@ -259,15 +259,19 @@ This benchmark is maintained by [LessieAI](https://lessie.ai), which is also one
 ## Citation
 
 ```bibtex
-@misc{lessieai2026peoplesearchbench,
-  title={People Search Bench: A Benchmark for Evaluating AI-Powered People Search Agents},
-  author={LessieAI},
-  year={2026},
-  eprint={2603.27476},
-  archivePrefix={arXiv},
-  url={https://arxiv.org/abs/2603.27476}
+@inproceedings{shi-etal-2026-peoplesearchbench,
+  title = "{P}eople{S}earch{B}ench: Evaluating {AI}-Powered People Search Platforms with Criteria-Grounded Verification",
+  author = "Shi, Tianyu and Wang, Wei and Xie, Zequn and Zhang, Shuai and Xia, Boyang and Zeng, Chenyu and Zhang, Qi and Ai, Lynn and Yu, Yaqi and Zhang, Kaiming and Tang, Feiyue and Yu, Zhenyu and Ding, Lei",
+  booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing: Industry Track",
+  month = oct,
+  year = "2026",
+  address = "Budapest, Hungary",
+  publisher = "Association for Computational Linguistics"
 }
 ```
+
+## Contact
+tianyu.shi3@mcgill.ca, shane@lessie.ai, lei.ding@umanitoba.ca
 
 ## Acknowledgments
 
