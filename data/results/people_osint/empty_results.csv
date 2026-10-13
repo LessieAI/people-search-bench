@@ -1,0 +1,16 @@
+query_id,category,reason
+b2b_0001,b2b,no person results
+b2b_0015,b2b,no person results
+b2b_0017,b2b,no Title/URL lines parsed
+b2b_0021,b2b,no Title/URL lines parsed
+b2b_0024,b2b,no Title/URL lines parsed
+b2b_0026,b2b,no person results
+b2b_0029,b2b,no person results
+det_0005,deterministic,no Title/URL lines parsed
+det_0011,deterministic,no person results
+det_0015,deterministic,no Title/URL lines parsed
+det_0024,deterministic,no Title/URL lines parsed
+det_0026,deterministic,no Title/URL lines parsed
+inf_0017,influencer,no person results
+inf_0028,influencer,no Title/URL lines parsed
+rec_0026,recruiting,no person results
